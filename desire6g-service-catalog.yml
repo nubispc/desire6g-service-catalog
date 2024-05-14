@@ -22,11 +22,19 @@ metadata:
   name: desire6g-service-catalog
 spec:
   containers:
-  - image: harbor.nbfc.io/desire6g/desire6g-service-catalog
+  - image: harbor.nbfc.io/desire6g/desire6g-service-catalog-updated
     name: desire6g-service-catalog
     ports:
     - containerPort: 8000
     resources: {}
+    imagePullPolicy: Always
+    env:
+      - name: GITHUB_ORG
+        value: nubispc
+      - name: GITHUB_REPO
+        value: d6g-sc-store
+      - name: GITHUB_ACCESS_TOKEN
+        value: <USE_TOKEN_FROM_LOCAL_ENV>
   dnsPolicy: ClusterFirst
   restartPolicy: Never
 status: {}
