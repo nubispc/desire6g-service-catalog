@@ -56,9 +56,9 @@ def upload_file_to_github(file_content, file_name, folder):
 @app.post("/upload/")
 async def upload_file(file: UploadFile = File(...)):
     file_content = await file.read()
-    if file.filename.endswith('.sg.yaml'):
+    if file.filename.endswith('.sg.yaml') or file.filename.endswith('.sg.yml'):
         folder = SERVICE_GRAPH_FOLDER
-    elif file.filename.endswith('.nf.yaml'):
+    elif file.filename.endswith('.nf.yaml') or file.filename.endswith('.nf.yml'):
         folder = NETWORK_FUNCTION_FOLDER
     else:
         raise HTTPException(status_code=400, detail="Unsupported file type")
