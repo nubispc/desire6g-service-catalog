@@ -6,15 +6,19 @@ import os
 app = FastAPI()
 
 
+def get_env_var(name):
+    value = os.getenv(name)
+    if value is None or not str(value).strip():
+        raise ValueError(f"Environment variable '{name}' is not set or is empty")
+    return str(value).strip()
+
 # Retrieve GitHub repository information from environment variables
-ORG = os.getenv('GITHUB_ORG')
-REPO_NAME = os.getenv('GITHUB_REPO')
-ACCESS_TOKEN = os.getenv('GITHUB_ACCESS_TOKEN')
+ORG = get_env_var('GITHUB_ORG')
+REPO_NAME = get_env_var('GITHUB_REPO')
+ACCESS_TOKEN = get_env_var('GITHUB_ACCESS_TOKEN')
 
 if None in (ORG, REPO_NAME, ACCESS_TOKEN):
     raise ValueError("GitHub credentials not provided")
-
-
 
 # Define folders for different file types in the GitHub repository
 SERVICE_GRAPH_FOLDER = 'service_graphs'
